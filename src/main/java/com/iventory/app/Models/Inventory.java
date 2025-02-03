@@ -1,4 +1,4 @@
-package com.iventory.app.Models;
+package com.inventory.app.Models;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +19,11 @@ public class Inventory {
     @Column(name = "inventory_code", unique = true)
     private String inventoryCode;
 
+<<<<<<< HEAD
     @Column(name = "product_code")
+=======
+    @Column(name = "product_code", unique = true)
+>>>>>>> 04c84d6deef9c45991cfbe32781a435494acf88c
     private String productCode;
 
     @Column(name = "available_quantity")
@@ -28,11 +32,19 @@ public class Inventory {
     @Column(name = "status")
     private Boolean status;
 
+<<<<<<< HEAD
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+=======
+    @Column(name = "creation_date", updatable = false)
+    private LocalDateTime creationDate;
+
+    @Column(name = "update_date")
+    private LocalDateTime updateDate;
+>>>>>>> 04c84d6deef9c45991cfbe32781a435494acf88c
 
     // Getters and setters
     public Integer getInventoryId() {
@@ -75,6 +87,7 @@ public class Inventory {
         this.status = status;
     }
 
+<<<<<<< HEAD
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -89,5 +102,21 @@ public class Inventory {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+=======
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+>>>>>>> 04c84d6deef9c45991cfbe32781a435494acf88c
     }
 }
