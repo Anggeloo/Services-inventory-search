@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import com.iventory.app.Models.Inventory;
 
 public interface IventoryRepository extends JpaRepository<Inventory, Integer>{
-    List<Inventory> findByEstadoTrue();
+    List<Inventory> findByStatusTrue();
     
-    @Query("SELECT i FROM Inventory i WHERE i.estado = true AND (LOWER(i.codigoProducto) LIKE LOWER(CONCAT('%', :codice, '%')) OR LOWER(i.codigoInventario) LIKE LOWER(CONCAT('%', :codice, '%'))) ")
+    @Query("SELECT i FROM Inventory i WHERE i.status = true AND (LOWER(i.productCode) LIKE LOWER(CONCAT('%', :codice, '%')) OR LOWER(i.inventoryCode) LIKE LOWER(CONCAT('%', :codice, '%'))) ")
     List<Inventory> findByCodice(@Param("codice") String codice);
 }

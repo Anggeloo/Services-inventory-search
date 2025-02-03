@@ -15,7 +15,7 @@ public class IventoryService {
     private IventoryRepository _repository;
 
     public List<Inventory> getInventorys() {
-        return _repository.findByEstadoTrue();
+        return _repository.findByStatusTrue();
     }
 
     public List<Inventory> searchByCodice(String codice) {
