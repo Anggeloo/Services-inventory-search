@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: CI/CD to EC2 - Inventory Services
+=======
+name: CI/CD to EC2
+>>>>>>> 27b76af09d8d9300c2fcc9a3a5d2afb81e4202d2
 
 on:
   push:
@@ -11,6 +15,7 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v3
 
+<<<<<<< HEAD
       # 🔹 Building Microservices in Java (only if applicable)
       - name: Build Java Application
         run: mvn clean package -DskipTests || echo "No Maven project found, skipping..."
@@ -18,15 +23,32 @@ jobs:
       # 🔹 Check files in target folder (for Java)
       - name: List files in target directory
         run: ls -l target/ || echo "No target directory found, skipping..."
+=======
+      # 🔹 Construir la aplicación y generar el .jar
+      - name: Build Java Application
+        run: mvn clean package -DskipTests
+
+      # 🔹 Verificar que el .jar se generó correctamente
+      - name: List files in target directory
+        run: ls -l target/
+>>>>>>> 27b76af09d8d9300c2fcc9a3a5d2afb81e4202d2
 
       # 🔹 Login en Docker Hub
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+<<<<<<< HEAD
       # 🔹 Building and Uploading Docker Images for Inventory Microservices
       - name: Build Docker Image
         run: docker build -t anggeloo/microservice-search-inventory:latest .
 
+=======
+      # 🔹 Construir la imagen de Docker
+      - name: Build Docker Image
+        run: docker build -t anggeloo/microservice-search-inventory:latest .
+
+      # 🔹 Subir la imagen a Docker Hub
+>>>>>>> 27b76af09d8d9300c2fcc9a3a5d2afb81e4202d2
       - name: Push Docker Image
         run: docker push anggeloo/microservice-search-inventory:latest
 
@@ -41,6 +63,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
+<<<<<<< HEAD
             # 1) Change to the directory where docker-compose.yml is located
             cd /home/ubuntu/
 
@@ -55,3 +78,26 @@ jobs:
 
             # 4) Push new containers with updated images
             docker-compose up -d --remove-orphans
+=======
+            # 1) Descargar la última versión de la imagen desde Docker Hub
+            docker pull anggeloo/microservice-search-inventory:latest
+
+            # 2) Detener y eliminar el contenedor previo si existe
+            docker stop product_container || true
+            docker rm product_container || true
+
+            # 3) Crear un archivo .env con las credenciales necesarias
+            echo "DB_HOST=${{ secrets.DB_HOST }}" > .env
+            echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+            echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+            echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "PORT=${{ secrets.PORT }}" >> .env
+            # Agrega más variables si es necesario
+
+            # 4) Correr el nuevo contenedor con las variables de entorno
+            docker run -d --name product_container \
+              --env-file .env \
+              -p 8080:8080 \
+              anggeloo/microservice-search-inventory:latest
+>>>>>>> 27b76af09d8d9300c2fcc9a3a5d2afb81e4202d2
